@@ -21,22 +21,21 @@ function voices() {
 synth.addEventListener("voiceschanged", voices);
 
 function textToSpeech(text) {
-  let utternance = new SpeechSynthesisUtterance(text);
+  let speech = new SpeechSynthesisUtterance(text);
   for (let voice of synth.getVoices()) {
-    //  if available device voice name is equal to user selected voice name,
-    //  then set speech voice to user selected voice
+    //  if available device voice name is equal to user selected voice name then set speech voice to user selected voice
     if (voice.name == voiceList.value) {
-      utternance.voice = voice;
+      speech.voice = voice;
     }
   }
-  // speak the speech / utternance
-  speechSynthesis.speak(utternance);
+  // speak the speech
+  speechSynthesis.speak(speech);
 }
 
 speechBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (textarea.value !== "") {
-    //   if an utteranance/speech is not currently in the process of speaking
+    //   if an speech is not currently in the process of speaking
     if (!synth.speaking) {
       textToSpeech(textarea.value);
     }
@@ -51,7 +50,7 @@ speechBtn.addEventListener("click", (e) => {
         speechBtn.innerText = "Resume Speech";
       }
 
-      // checking is utternance/speech in speaking process or not in every 100 ms
+      // checking is speech in speaking process or not in every 100 ms
       // if not then set the value of isSpeaking to true and change button text
       setInterval(() => {
         if (!synth.speaking && !isSpeaking) {
